@@ -1,6 +1,6 @@
 import { Canvas, useLoader, useThree, useFrame } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { Box3, AnimationMixer, TextureLoader, MeshBasicMaterial, SphereGeometry, DirectionalLight } from "three";
+import { Box3, DirectionalLight } from "three";
 import { OrbitControls, Stars } from "@react-three/drei";
 import { Physics, usePlane, useBox } from "@react-three/cannon";
 import { useRef, useEffect, useState } from "react";
@@ -57,21 +57,16 @@ function Model() {
   const height = box.max.y - box.min.y;
   gltf.scene.position.y = height / 2;
   const { forward, backward } = useKeyboardControls();
-  const [ref] = useBox(() => ({ mass: 0, position: [0, height / 2, 0] }));
-  const mixer = useRef(new AnimationMixer(gltf.scene));
-  // const clip = gltf.animations.find((clip) => clip.name === "_bee_idle");
-  // if (clip) {
-  //   const action = mixer.current.clipAction(clip);
-  //   action.play();
-  // }
+  const [ref, api] = useBox(() => ({ mass: 0, position: [0, height / 2, 0] }));
 
   useFrame((state, delta) => {
-    mixer.current.update(delta);
+    console.log(api);
     if (forward) {
-      ref.current.velocity.z -= delta * 10;
-    }
-    if (backward) {
-      ref.current.velocity.z += delta * 10;
+      api.velocity.set(0, 0, -1);
+    } else if (backward) {
+      api.velocity.set(0, 0, 1);
+    } else {
+      api.velocity.set(0, 0, 0);
     }
   });
 
@@ -107,8 +102,8 @@ export default function Game2D() {
     <div id="canvas">
       <Canvas style={{ background: "black" }}>
         <Stars radius={150} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
-        <MyDirectionalLight position={[0, 10, 5]} />
         <OrbitControls />
+        <ambientLight intensity={1} />
         <Physics>
           <Model />
           <InvisibleFloor />
