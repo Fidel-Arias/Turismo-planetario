@@ -1,8 +1,8 @@
-import './App.css'
+import Game2D from './components/Game2D'
 
 function App() {
   return (
-    <h1>Hello World</h1>
+      <Game2D/>
     )
 }
 
