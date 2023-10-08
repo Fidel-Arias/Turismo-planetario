@@ -1,8 +1,8 @@
 import { Canvas, useLoader, useThree, useFrame } from "@react-three/fiber";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
-import { Box3, DirectionalLight, Euler, AnimationMixer, Quaternion, Vector3 } from "three";
-import { OrbitControls, Stars } from "@react-three/drei";
-import { Physics, usePlane, useBox } from "@react-three/cannon";
+import { Box3, Vector3, Float32BufferAttribute, Points, PointsMaterial, BufferGeometry, BoxHelper } from "three";
+import { OrbitControls } from "@react-three/drei";
+import { Physics, usePlane, useBox, useSphere } from "@react-three/cannon";
 import { useRef, useEffect, useState } from "react";
 import "../styles/Game2D.css";
 function useKeyboardControls() {
@@ -50,19 +50,29 @@ function useKeyboardControls() {
   return movement;
 }
 
-function Model() {
+function Planet({ modelPath, mass, size, position }) {
+  const gltf = useLoader(GLTFLoader, modelPath);
+  const box = new Box3().setFromObject(gltf.scene);
+  const radius = box.max.distanceTo(box.min) / 2;
+  const scale = size / radius;
+  gltf.scene.scale.set(scale, scale, scale);
+  gltf.scene.position.set(position[0], radius * scale + position[1], position[2]);
+  const [ref, api] = useSphere(() => ({ mass: mass, position: position, args: [radius * scale] }));
+  return <primitive object={gltf.scene} ref={ref} />;
+}
+
+function Rocket() {
   const gltf = useLoader(GLTFLoader, "/models/Rocket2.glb");
   const box = new Box3().setFromObject(gltf.scene);
   const height = box.max.y - box.min.y;
-  gltf.scene.position.y = height / 2;
   const keyboardControls = useKeyboardControls();
-  const [ref, api] = useBox(() => ({ mass: 1, position: [0, height / 2, 0] }));
+  const [ref, api] = useBox(() => ({ mass: 1000, position: [0, height / 2, 0] }));
   const currentDirection = useRef(new Vector3(0, 0, -1));
   const totalRotation = useRef(0);
   useFrame((state, delta) => {
     let velocity = new Vector3(0, 0, 0);
     if (keyboardControls.forward) {
-      velocity.add(currentDirection.current.clone().multiplyScalar(100));
+      velocity.add(currentDirection.current.clone().multiplyScalar(10));
       if (keyboardControls.left) {
         totalRotation.current += Math.PI / 45;
         currentDirection.current.applyAxisAngle(new Vector3(0, 1, 0), Math.PI / 45);
@@ -95,16 +105,52 @@ function InvisibleFloor() {
   );
 }
 
+function Stars() {
+  const { scene } = useThree();
+  const ref = useRef();
+
+  useEffect(() => {
+    const starGeometry = new BufferGeometry();
+    const starMaterial = new PointsMaterial({
+      color: 0xbbbbbb,
+      size: 0.7,
+    });
+
+    const starVertices = [];
+    for (let i = 0; i < 10000; i++) {
+      const x = (Math.random() - 0.5) * 2000;
+      const y = (Math.random() - 0.5) * 1;
+      const z = (Math.random() - 0.5) * 2000;
+      starVertices.push(x, y, z);
+    }
+
+    starGeometry.setAttribute("position", new Float32BufferAttribute(starVertices, 3));
+
+    const stars = new Points(starGeometry, starMaterial);
+    ref.current = stars;
+    scene.add(stars);
+
+    return () => {
+      scene.remove(stars);
+      starGeometry.dispose();
+      starMaterial.dispose();
+    };
+  }, [scene]);
+
+  return null;
+}
+
 export default function Game2D() {
   return (
     <div id="canvas">
       <Canvas style={{ background: "black" }}>
-        <Stars radius={150} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+        <Stars />
         <OrbitControls />
-        <ambientLight intensity={0.5} />
+        <ambientLight intensity={1} />
         <Physics>
-          <Model />
-          {/* <InvisibleFloor /> */}
+          <Planet modelPath="/models/tierra.glb" mass={1} size={10} position={[100, 100, 0]} />
+          <Rocket />
+          <InvisibleFloor />
         </Physics>
       </Canvas>
     </div>
