@@ -1,0 +1,64 @@
+.contenido-body_condicion{
+    background-image: url('/img/FONDO.jpeg');
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.titulo_condicion{
+    font-family: var(--letter-font3);
+    color: white;
+    text-align: center;
+    font-size: 6rem;
+    position: relative;
+    width: 50%;
+    line-height: 1.2;
+    margin: 0 auto;
+    margin-top: 13rem;
+    z-index: 2; /* z-index más alto para el título */
+}
+
+.texto_condicion{
+    font-family: var(--letter-font1);
+  position: relative;
+  color: white;
+  z-index: 2;
+  left: 50%;
+  top: 45%;
+  width: 40%;
+  text-align: center;
+  font-size: 45px;
+  transform: translate(-50%, -140%);
+}
+
+.rectangulo_condicion{
+    background-color: #77656585;
+    height: 800px;
+    left: 50%;
+    top: 45%;
+    position: absolute;
+    transform: translate(-50%, -45%);
+    width: 80%;
+    border-radius: 4rem;
+}
+
+.boton-flecha-condicion{
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(300%, 160%);
+    background: none;
+    border: none;
+    padding: 0;
+    display: block;
+}
+
+.flecha_condicion{
+    height: 140px;
+    width: 215px;
+    object-fit: cover;
+}

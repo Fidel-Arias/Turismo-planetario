@@ -1,0 +1,79 @@
+.formulario_registrarse {
+    width: 600px;
+    background-color: #030303;
+    padding: 50px;
+    margin-top: 100px;
+    border-radius: 40px;
+    margin: auto;
+    margin-top: 100px;
+    color: #495096;
+    
+}
+
+.formulario_registrarse legend{
+    font-size: 50px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-bottom: 2px solid white;
+    font-family: var(--letter-font1);
+}
+.names-padre{
+    display: flex;
+    gap: 1rem;
+}
+
+.names {
+    width: 50%;
+    background: #110F10;
+    padding: 15px;
+    color: white;
+    border-radius: 15px;
+    margin-bottom: 16px;
+    border: 1px solid #495096;
+    font-size: 20px;
+}
+
+.controls {
+    width: 100%;
+    background: #110F10;
+    padding: 15px;
+    color: white;
+    border-radius: 15px;
+    margin-bottom: 16px;
+    border: 1px solid #495096;
+    font-size: 20px;
+}
+
+.formulario_registrarse .registro{
+    width: 50%;
+    color: white;
+    background: #495096;
+    padding: 12px;
+    margin: 16px 25%;
+    font-size: 20px;
+    border-radius: 20px;
+    font-family: var(--letter-font1);
+}
+.registro_google{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+.formulario_registrarse .registro_google{
+    width: 80%;
+    color: white;
+    background: #495096;
+    padding: 12px;
+    margin: 18px 10%;
+    font-size: 20px;
+    border-radius: 20px;
+    font-family: var(--letter-font1);
+}
+
+.registro:hover, .registro_google:hover{
+    cursor: pointer;
+}
+.logo_google{
+    color: white;
+}

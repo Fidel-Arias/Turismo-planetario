@@ -1,0 +1,56 @@
+.contenedor-header {
+    border-bottom: 5px solid #495096; /* Añade un borde inferior de 1 píxel de color gris (#ccc) */
+}
+
+.header{
+    background-color: #110F10;
+    display: flex;
+    align-items: center;
+    height: 120px;
+    padding: 5px 2%;
+}
+.header nav {
+    margin-left: auto; /* Los elementos de navegación se colocarán a la derecha */
+}
+.header .logo img{
+    height: 120px;
+    width: auto;
+    margin-right: auto;
+}
+.header .nav-links a{
+    font-size: 700;
+    font-family: var(--letter-font1);
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+.header .nav.links{
+    list-style: none;
+}
+
+header .nav-links li:hover{
+    transform: scale(1.1);
+}
+header .nav-links li{
+    display: inline-block;
+    padding: 0 20px;
+}
+.header .nav-links a:hover{
+    color: #707AB7;
+}
+.header .btn button{
+    font-weight: 700;
+    color: #495096;
+    padding: 9px 20px;
+    background: #110F12;
+    border: 2px solid #495096;
+    border-radius: 50px;
+    cursor: pointer;    
+    transition: all 0.3 ease 0s;
+}
+ 
+.header .btn button:hover{
+    background-color: #110F10;
+    color:#495096;
+    transform: scale(1.1);
+}

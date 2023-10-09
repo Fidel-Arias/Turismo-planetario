@@ -1,0 +1,67 @@
+.contenido-body_preparar{
+    background-image: url('/img/FONDO.jpeg');
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+}
+
+.titulo_preparar{
+    font-family: var(--letter-font3);
+    color: white;
+    text-align: center;
+    font-size: 5rem;
+    position: relative;
+    width: 50%;
+    line-height: 1.2;
+    background-color: #DE84C4;
+    padding: 2rem;
+    border-radius: 5rem;
+    margin: 0 auto;
+    margin-top: 20rem;
+    z-index: 2;
+}
+
+.texto_preparar{
+    font-family: var(--letter-font1);
+  position: relative;
+  color: white;
+  z-index: 2;
+  left: 50%;
+  top: 45%;
+  width: 50%;
+  text-align: center;
+  font-size: 40px;
+  transform: translate(-50%, -100%);
+}
+
+.rectangulo_preparar{
+    background-color: #77656585;
+    height: 800px;
+    left: 50%;
+    top: 45%;
+    position: absolute;
+    transform: translate(-50%, -45%);
+    width: 80%;
+    border-radius: 4rem;
+}
+
+.boton-flecha-preparar{
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    top: 45%;
+    transform: translate(300%, 160%);
+    background: none;
+    border: none;
+    padding: 0;
+    display: block;
+}
+
+.flecha_preparar{
+    height: 140px;
+    width: 215px;
+    object-fit: cover;
+}
